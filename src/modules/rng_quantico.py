@@ -5,8 +5,8 @@ from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
 from collections import Counter
 
-token = "L_8r3A6RlPdjorP_bo05Ne-HrP9H0gRL9tFGc0gaL7bH"
-instance = "crn:v1:bluemix:public:quantum-computing:us-east:a/3355d3654c8e42ec9f98a727b463cf27:b8bc1faa-cf1a-42ff-859c-51c4d32fc1c3::"
+token = "" #API IBM TOKEN
+instance = "" #CRN da IBM
 
 def gerar_matriz_qrng_real(tamanho=16, job_id=None):
     total_numeros = tamanho * tamanho
