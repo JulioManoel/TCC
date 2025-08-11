@@ -1,0 +1,8 @@
+numpy
+opencv-python
+matplotlib
+qiskit
+qiskit-aer
+qiskit-ibm-runtime
+pycryptodome
+tk
