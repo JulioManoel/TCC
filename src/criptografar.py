@@ -1,16 +1,23 @@
-import time
-import sys
 import os
+import sys
+import time
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 sys.path.append('TCC/src/modules')
 
 
-from modules.utils_image import mostrar_imagem, upload_img, captura_img, cortar_centro, hash_imagem, mostrar_lado_a_lado
+from modules.crypt_image import aplicar_lm, aplicar_xor_com_qrng
+from modules.kyber import encrypt_config
 from modules.rng_simulado import gerar_matriz_qrng
-from modules.rng_quantico import gerar_matriz_qrng_real
-from modules.crypt_image import aplicar_xor_com_qrng, aplicar_lm, desfazer_lm, recuperar_imagem
-from modules.kyber import encrypt_config, decrypt_config, kyber512, MockKyber512
+from modules.utils_image import (
+    captura_img,
+    cortar_centro,
+    hash_imagem,
+    mostrar_imagem,
+    mostrar_lado_a_lado,
+    upload_img,
+)
+
 
 def main():
     print("1 --> Upload de Imagem")

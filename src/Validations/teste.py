@@ -1,13 +1,25 @@
 
 from qiskit_ibm_runtime import QiskitRuntimeService
+import numpy as np
+import cv2
+
+
+tamanho = 400
 
 service = QiskitRuntimeService(
     channel='ibm_quantum_platform',
-    instance='crn:v1:bluemix:public:quantum-computing:us-east:a/3355d3654c8e42ec9f98a727b463cf27:b8bc1faa-cf1a-42ff-859c-51c4d32fc1c3::',
-    token='L_8r3A6RlPdjorP_bo05Ne-HrP9H0gRL9tFGc0gaL7bH'
+    instance='',
+    token=''
 )
-job = service.job('d2ceu425v10c73c02epg')
+job = service.job('d2cenpgf4s4s73dfafa0')
+
+# JA FORAM
+#
+# job = service.job('d2ceu425v10c73c02epg')
+
 job_result = job.result()
+
+
 
 # To get counts for a particular pub result, use
 #
@@ -22,4 +34,22 @@ pub_result = job_result[0]
 # Se você criou o circuito com qc.measure_all(), o nome padrão costuma ser "meas"
 counts = pub_result.data.meas.get_counts()
 
+todos_bitstrings = []
+
+for bitstring, freq in counts.items():
+    todos_bitstrings.extend([bitstring] * freq)
+
+np.random.shuffle(todos_bitstrings)
+valores = np.array([int(b, 2) for b in todos_bitstrings], dtype=np.uint8)
+matriz = valores.reshape((tamanho, tamanho))
+
+
 print(counts)
+
+        
+caminho_img = f"src/matrices/real/matriz_qrng_{1}.png"
+
+cv2.imwrite(str(caminho_img), matriz)
+
+print(f"Salvo {caminho_img}")
+

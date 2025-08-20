@@ -1,8 +1,10 @@
-import json
 import base64
+import json
+
 import numpy as np
 from Crypto.Cipher import AES
 from Crypto.Random import get_random_bytes
+
 
 # ================= Mock Kyber512 ==================
 class MockKyber512:

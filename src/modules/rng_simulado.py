@@ -1,8 +1,10 @@
 # qrng_simulado.py
-from qiskit import QuantumCircuit, transpile
-from qiskit_aer import Aer
-import numpy as np
 import time
+
+import numpy as np
+from qiskit import QuantumCircuit, transpile
+from qiskit_aer import AerSimulator as Aer
+
 
 def gerar_matriz_qrng(tamanho=400):
     """Gera uma matriz tamanho x tamanho de inteiros de 8 bits via QRNG otimizado (simulador)."""
@@ -14,7 +16,7 @@ def gerar_matriz_qrng(tamanho=400):
         qc.h(qubit)
         qc.measure(qubit, qubit)
 
-    simulator = Aer.get_backend('aer_simulator')
+    simulator = Aer()
     compiled = transpile(qc, simulator)
 
     print("Executando circuito no simulador...")

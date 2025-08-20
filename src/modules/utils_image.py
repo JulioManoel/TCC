@@ -7,13 +7,14 @@ Este módulo é agnóstico à lógica de criptografia.
 """
 
 # Importações necessárias para este módulo
+import hashlib
+import time
+import tkinter as tk
+from tkinter import filedialog
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
-import tkinter as tk
-from tkinter import filedialog
-import time
-import hashlib
 
 # --- Funções de Exibição ---
 

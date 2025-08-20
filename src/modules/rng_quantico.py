@@ -1,9 +1,9 @@
 import time
+
 import numpy as np
-from qiskit_ibm_runtime import QiskitRuntimeService, Sampler
 from qiskit import QuantumCircuit
 from qiskit.transpiler.preset_passmanagers import generate_preset_pass_manager
-from collections import Counter
+from qiskit_ibm_runtime import QiskitRuntimeService, Sampler
 
 token = "" #API IBM TOKEN
 instance = "" #CRN da IBM

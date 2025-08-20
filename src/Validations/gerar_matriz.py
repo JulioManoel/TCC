@@ -4,11 +4,10 @@ import sys
 import os
 import time
 
-modules_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "modules"))
-sys.path.insert(0, modules_path)
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 # Importa sua função nova que gera matriz QRNG real em batches
-from rng_quantico import gerar_matriz_qrng_real
+from modules.rng_quantico import gerar_matriz_qrng_real
 
 def salvar_matrizes_qrng_real(qtd=2, tamanho=400):
 

@@ -1,5 +1,6 @@
 import numpy as np
 
+
 # ======== Aplica XOR ========
 def aplicar_xor_com_qrng(imagem_processada, matriz_qrng):
     if imagem_processada.shape[:2] != matriz_qrng.shape:
