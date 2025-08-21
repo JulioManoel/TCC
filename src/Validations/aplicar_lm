@@ -1,0 +1,82 @@
+import os
+import sys
+import time
+import cv2
+
+
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+
+from modules.crypt_image import aplicar_lm, aplicar_xor_com_qrng
+from modules.utils_image import (
+    captura_img,
+    cortar_centro,
+    hash_imagem,
+    mostrar_imagem,
+    mostrar_lado_a_lado,
+    upload_img,
+)
+
+matriz_path = "/home/rafael-brain/GitHub/Estudo/TCC/src/matrices/real/matriz_qrng_1.png"
+matriz_qrng = cv2.imread(matriz_path, cv2.IMREAD_GRAYSCALE)
+
+
+def main():
+    print("1 --> Upload de Imagem")
+    print("2 --> Captura de Imagem")
+    opcao = int(input("Selecione uma opção: "))
+
+    if opcao == 1:
+        imagem = upload_img()
+    elif opcao == 2:
+        imagem = captura_img()
+    else:
+        print("Opção inválida.")
+        return
+
+    if imagem is None:
+        print("Nenhuma imagem carregada, abortando.")
+        return
+
+    print("Tamanho da imagem:", imagem.shape)
+
+    tempo_start = time.time()
+
+    imagem_processada = cortar_centro(imagem, 400)
+    if imagem_processada is None:
+        print("Erro ao cortar imagem, abortando.")
+        return
+
+    mostrar_imagem(imagem_processada, "Imagem de tamanho 400x400")
+
+    hash_original = hash_imagem(imagem_processada)
+    print("Hash da imagem original:", hash_original, "\n")
+
+    matriz = matriz_qrng
+    print("Matriz QRNG simulada gerada.\n")
+    matriz = cv2.resize(matriz, (imagem_processada.shape[1], imagem_processada.shape[0]))
+
+    imagem_xor = aplicar_xor_com_qrng(imagem_processada, matriz)
+
+    imagem_caotica_simulada, chaos_seq = aplicar_lm(imagem_xor)
+
+    mostrar_lado_a_lado(imagem_xor, imagem_caotica_simulada, "Após aplicar o XOR", "Após aplicar o mapa caótico")
+
+
+
+    tempo_end = time.time()
+    print(f"Criptografia concluída em {tempo_end - tempo_start:.2f} segundos.")
+    i = 1
+    imagem_caminho = f"src/Validations/imagens-criptografadas/imagem_{i}.png"
+    imagem_xor_caminho = f"src/Validations/imagens-criptografadas/xor_imagem{i}.png"
+    imagem_lm_caminho = f"src/Validations/imagens-criptografadas/lm_imagem{i}.png"
+    cv2.imwrite(str(imagem_caminho), imagem_processada)
+    cv2.imwrite(str(imagem_xor_caminho), imagem_xor)
+    cv2.imwrite(str(imagem_lm_caminho), imagem_caotica_simulada)
+
+    print("Salvo")
+    
+
+
+if __name__ == "__main__":
+    main()
